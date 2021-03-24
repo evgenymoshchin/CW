@@ -1,5 +1,4 @@
-<html>
-<body>
-<h2>Hello World!</h2>
+<html lang="en">
+<body onload="window.location = '/app/login-control'">
 </body>
 </html>
