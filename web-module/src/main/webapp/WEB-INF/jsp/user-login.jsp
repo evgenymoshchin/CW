@@ -23,7 +23,8 @@
             <td><input minlength="1" maxlength="10" type="password" name="password" required/></td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><input type="submit" value="Login"/>
+            <td colspan="2" align="center">
+                <input type="submit" value="Login"/>
                 <input type="reset" value="Reset"/>
             </td>
         </tr>

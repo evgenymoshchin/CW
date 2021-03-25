@@ -15,28 +15,22 @@ import java.lang.invoke.MethodHandles;
 
 import static com.gmail.evgenymoshchin.app.constant.PagesConstant.JSP_PAGES_LOCATION;
 
-public class LoginController extends HttpServlet {
+public class DeleteUserController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("LoginController");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(JSP_PAGES_LOCATION + "/user-login.jsp");
-        requestDispatcher.include(request, response);
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        logger.info(email + " " + password);
 
-        boolean isValid = userService.isValidUser(email, password);
-        if (isValid) {
-            request.getRequestDispatcher(JSP_PAGES_LOCATION + "/get_users.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher(JSP_PAGES_LOCATION + "/login_failed.jsp").forward(request, response);
+        String[] selectedIds = request.getParameterValues("userId");
+        Long id;
+        for (String idFromForm : selectedIds) {
+            id = Long.parseLong(idFromForm);
+            logger.info(id);
+            userService.deleteUserById(id);
         }
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(JSP_PAGES_LOCATION + "/Success.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

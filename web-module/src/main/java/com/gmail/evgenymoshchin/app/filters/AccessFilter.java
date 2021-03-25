@@ -19,15 +19,15 @@ public class AccessFilter implements Filter {
 
     private static final Map<RoleEnum, String> roleMap = new HashMap<RoleEnum, String>() {{
         put(RoleEnum.ROLE_ADMINISTRATOR, "/users");
-        put(RoleEnum.ROLE_USER, "/roles");
+        put(RoleEnum.ROLE_USER, "/reviews");
     }};
 
-    public static String getRedirectionUrl(RoleEnum roleName) {
-        return roleMap.get(roleName);
+    public static String getRedirectionUrl(RoleEnum name) {
+        logger.info("Access Filter");
+        return roleMap.get(name);
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
     }
 }

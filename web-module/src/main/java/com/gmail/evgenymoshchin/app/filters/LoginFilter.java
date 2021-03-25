@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
+import static com.gmail.evgenymoshchin.app.constant.PagesConstant.JSP_PAGES_LOCATION;
 import static com.gmail.evgenymoshchin.app.filters.AccessFilter.getRedirectionUrl;
 
 public class LoginFilter implements Filter {
@@ -41,9 +42,8 @@ public class LoginFilter implements Filter {
                 String redirectionUrl = getRedirectionUrl(user.getRole());
                 ((HttpServletResponse) servletResponse).sendRedirect(httpRequest.getContextPath() + redirectionUrl);
             } else {
-                ((HttpServletResponse) servletResponse).sendRedirect(httpRequest.getContextPath() + "/login?is_not_valid=true");
+                ((HttpServletResponse) servletResponse).sendRedirect(JSP_PAGES_LOCATION + "/login_failed.jsp");
             }
         }
-
     }
 }

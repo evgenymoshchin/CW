@@ -9,15 +9,56 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-
     <servlet>
-        <servlet-name>login-control</servlet-name>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.AddUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.GetUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
         <servlet-class>com.gmail.evgenymoshchin.app.controller.LoginController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>login-control</servlet-name>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/success</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/add-user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserController</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
         <url-pattern>/login-control</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>login-filter</filter-name>
+        <filter-class>com.gmail.evgenymoshchin.app.filters.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>login-filter</filter-name>
+        <url-pattern>/login-control</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>access-filter</filter-name>
+        <filter-class>com.gmail.evgenymoshchin.app.filters.AccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>access-filter</filter-name>
+<!--        <url-pattern>/users</url-pattern>-->
+        <url-pattern>/reviews</url-pattern>
+    </filter-mapping>
 
     <listener>
         <listener-class>com.gmail.evgenymoshchin.app.listener.InitialListener</listener-class>

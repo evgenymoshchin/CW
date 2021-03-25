@@ -1,7 +1,9 @@
 package com.gmail.evgenymoshchin.app.controller;
 
+import com.gmail.evgenymoshchin.repository.model.RoleEnum;
 import com.gmail.evgenymoshchin.service.UserService;
 import com.gmail.evgenymoshchin.service.impl.UserServiceImpl;
+import com.gmail.evgenymoshchin.service.model.UserDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,28 +17,33 @@ import java.lang.invoke.MethodHandles;
 
 import static com.gmail.evgenymoshchin.app.constant.PagesConstant.JSP_PAGES_LOCATION;
 
-public class LoginController extends HttpServlet {
+public class AddUserController extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("LoginController");
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(JSP_PAGES_LOCATION + "/user-login.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(JSP_PAGES_LOCATION + "/add_user.jsp");
         requestDispatcher.include(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        logger.info(email + " " + password);
+        UserDTO userDTO = getUserDTO(request);
+        userService.addUser(userDTO);
+        response.sendRedirect(request.getContextPath() + "/users");
+    }
 
-        boolean isValid = userService.isValidUser(email, password);
-        if (isValid) {
-            request.getRequestDispatcher(JSP_PAGES_LOCATION + "/get_users.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher(JSP_PAGES_LOCATION + "/login_failed.jsp").forward(request, response);
-        }
+    private UserDTO getUserDTO(HttpServletRequest request) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setFirstName(request.getParameter("firstName"));
+        userDTO.setLastName(request.getParameter("lastName"));
+        userDTO.setPatronymic(request.getParameter("patronymic"));
+        userDTO.setEmail(request.getParameter("email"));
+        userDTO.setPassword(request.getParameter("password"));
+        String role = request.getParameter("role");
+        RoleEnum roleEnum = RoleEnum.valueOf(role);
+        userDTO.setRole(roleEnum);
+        return userDTO;
     }
 }
