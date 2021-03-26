@@ -5,8 +5,10 @@ import com.gmail.evgenymoshchin.repository.GenericRepository;
 import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
+import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.User;
+import com.gmail.evgenymoshchin.repository.model.UserReview;
 import com.gmail.evgenymoshchin.service.UserService;
 import com.gmail.evgenymoshchin.service.model.UserDTO;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
     private final GenericRepository<Role> roleRepository = RoleRepositoryImpl.getInstance();
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
     private final GenericRepository<User> userRepository = UserRepositoryImpl.getInstance();
+    private final GenericRepository<UserReview> userReviewRepository = UserReviewRepositoryImpl.getInstance();
 
     private static UserService instance;
 
@@ -83,6 +86,7 @@ public class UserServiceImpl implements UserService {
         try (Connection connection = connectionRepository.getDataSourceConnection()) {
             connection.setAutoCommit(false);
             try {
+                userReviewRepository.deleteByUserId(connection, userId);
                 userRepository.delete(connection, userId);
                 connection.commit();
             } catch (SQLException e) {

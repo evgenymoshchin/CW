@@ -38,6 +38,15 @@ public class InitialListener implements ServletContextListener {
         testAdmin.setEmail("ztrancer@gmail.com");
         testAdmin.setRole(RoleEnum.ROLE_ADMINISTRATOR);
         userService.addUser(testAdmin);
+
+        UserDTO testUser = new UserDTO();
+        testUser.setFirstName("vanya");
+        testUser.setLastName("ivanov");
+        testUser.setPatronymic("ivanych");
+        testUser.setPassword("1111");
+        testUser.setEmail("ivanych@gmail.com");
+        testUser.setRole(RoleEnum.ROLE_USER);
+        userService.addUser(testUser);
     }
 
     @Override

@@ -5,8 +5,10 @@ import com.gmail.evgenymoshchin.repository.GenericRepository;
 import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
+import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.User;
+import com.gmail.evgenymoshchin.repository.model.UserReview;
 import com.gmail.evgenymoshchin.service.TableService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +22,7 @@ public class TableServiceImpl implements TableService {
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private static final GenericRepository<Role> roleRepository = RoleRepositoryImpl.getInstance();
     private static final GenericRepository<User> userRepository = UserRepositoryImpl.getInstance();
+    private static final GenericRepository<UserReview> userReviewRepository = UserReviewRepositoryImpl.getInstance();
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
 
     private static TableService instance;
@@ -39,6 +42,7 @@ public class TableServiceImpl implements TableService {
         try (Connection connection = connectionRepository.getDataSourceConnection()) {
             connection.setAutoCommit(false);
             try {
+                userReviewRepository.dropTableFromDataBase(connection);
                 userRepository.dropTableFromDataBase(connection);
                 roleRepository.dropTableFromDataBase(connection);
                 connection.commit();
@@ -58,6 +62,7 @@ public class TableServiceImpl implements TableService {
             try {
                 roleRepository.createTableInDataBase(connection);
                 userRepository.createTableInDataBase(connection);
+                userReviewRepository.createTableInDataBase(connection);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();

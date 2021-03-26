@@ -1,19 +1,13 @@
-package com.gmail.evgenymoshchin.repository.model;
+package com.gmail.evgenymoshchin.service.model;
 
-public class UserReview {
-    private Long id;
+import com.gmail.evgenymoshchin.repository.model.User;
+
+public class UserReviewDTO {
     private String topic;
     private String review;
     private String date;
-    private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private UserDTO userDTO;
+    private Long id;
 
     public String getTopic() {
         return topic;
@@ -39,11 +33,19 @@ public class UserReview {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public Long getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }

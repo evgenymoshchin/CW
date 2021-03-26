@@ -15,6 +15,8 @@ public interface GenericRepository<T> {
 
     void delete(Connection connection, Long id);
 
+    void deleteByUserId(Connection connection, Long userId);
+
     void dropTableFromDataBase(Connection connection);
 
     void createTableInDataBase(Connection connection);

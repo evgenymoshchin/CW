@@ -68,6 +68,11 @@ public class RoleRepositoryImpl implements GenericRepository<Role> {
     }
 
     @Override
+    public void deleteByUserId(Connection connection, Long userId) {
+
+    }
+
+    @Override
     public void dropTableFromDataBase(Connection connection) {
         try (Statement statement = connection.createStatement()) {
             statement.execute(DROP_TABLE_ROLE_QUERY);

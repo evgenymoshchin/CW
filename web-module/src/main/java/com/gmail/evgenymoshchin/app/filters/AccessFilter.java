@@ -17,7 +17,7 @@ import java.util.Map;
 public class AccessFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    private static final Map<RoleEnum, String> roleMap = new HashMap<RoleEnum, String>() {{
+    private static final Map<RoleEnum, String> roleMap = new HashMap<>() {{
         put(RoleEnum.ROLE_ADMINISTRATOR, "/users");
         put(RoleEnum.ROLE_USER, "/reviews");
     }};
