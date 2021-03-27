@@ -7,7 +7,6 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/add-user" method="POST">
-
     <p><b>Enter lastName:</b><br>
         <label>
             <input minlength="3" maxlength="40" name="lastName" type="text">
@@ -26,7 +25,7 @@
         </label></p>
     <p><b>Enter password:</b><br>
         <label>
-            <input minlength="3" maxlength="10" name="password" type="password">
+            <input minlength="3" maxlength="10" name="password" type="password"
         </label></p>
     <b>Role:</b><br>
     <label>

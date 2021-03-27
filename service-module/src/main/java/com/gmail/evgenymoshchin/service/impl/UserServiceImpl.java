@@ -1,14 +1,15 @@
 package com.gmail.evgenymoshchin.service.impl;
 
 import com.gmail.evgenymoshchin.repository.ConnectionRepository;
-import com.gmail.evgenymoshchin.repository.GenericRepository;
+import com.gmail.evgenymoshchin.repository.RoleRepository;
+import com.gmail.evgenymoshchin.repository.UserRepository;
+import com.gmail.evgenymoshchin.repository.UserReviewRepository;
 import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.User;
-import com.gmail.evgenymoshchin.repository.model.UserReview;
 import com.gmail.evgenymoshchin.service.UserService;
 import com.gmail.evgenymoshchin.service.model.UserDTO;
 import org.apache.logging.log4j.LogManager;
@@ -24,10 +25,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private final GenericRepository<Role> roleRepository = RoleRepositoryImpl.getInstance();
+    private final RoleRepository roleRepository = RoleRepositoryImpl.getInstance();
+    private final UserRepository userRepository = UserRepositoryImpl.getInstance();
+    private final UserReviewRepository userReviewRepository = UserReviewRepositoryImpl.getInstance();
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
-    private final GenericRepository<User> userRepository = UserRepositoryImpl.getInstance();
-    private final GenericRepository<UserReview> userReviewRepository = UserReviewRepositoryImpl.getInstance();
 
     private static UserService instance;
 
@@ -105,7 +106,11 @@ public class UserServiceImpl implements UserService {
             try {
                 User user = userRepository.getUserByEmail(connection, email);
                 connection.commit();
-                return user.getPassword().equals(password);
+                if (user == null) {
+                    return false;
+                } else {
+                    return user.getPassword().equals(password);
+                }
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);

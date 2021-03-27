@@ -1,14 +1,13 @@
 package com.gmail.evgenymoshchin.service.impl;
 
 import com.gmail.evgenymoshchin.repository.ConnectionRepository;
-import com.gmail.evgenymoshchin.repository.GenericRepository;
+import com.gmail.evgenymoshchin.repository.RoleRepository;
+import com.gmail.evgenymoshchin.repository.UserRepository;
+import com.gmail.evgenymoshchin.repository.UserReviewRepository;
 import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
-import com.gmail.evgenymoshchin.repository.model.Role;
-import com.gmail.evgenymoshchin.repository.model.User;
-import com.gmail.evgenymoshchin.repository.model.UserReview;
 import com.gmail.evgenymoshchin.service.TableService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,9 +19,9 @@ import java.sql.SQLException;
 public class TableServiceImpl implements TableService {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static final GenericRepository<Role> roleRepository = RoleRepositoryImpl.getInstance();
-    private static final GenericRepository<User> userRepository = UserRepositoryImpl.getInstance();
-    private static final GenericRepository<UserReview> userReviewRepository = UserReviewRepositoryImpl.getInstance();
+    private static final RoleRepository roleRepository = RoleRepositoryImpl.getInstance();
+    private static final UserRepository userRepository = UserRepositoryImpl.getInstance();
+    private static final UserReviewRepository userReviewRepository = UserReviewRepositoryImpl.getInstance();
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
 
     private static TableService instance;

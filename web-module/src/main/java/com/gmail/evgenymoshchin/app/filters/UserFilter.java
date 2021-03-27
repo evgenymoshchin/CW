@@ -18,7 +18,6 @@ import static com.gmail.evgenymoshchin.app.constant.PagesConstant.JSP_PAGES_LOCA
 public class UserFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -35,6 +34,5 @@ public class UserFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

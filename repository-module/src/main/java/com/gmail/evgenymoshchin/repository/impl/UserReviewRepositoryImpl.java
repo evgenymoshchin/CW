@@ -1,8 +1,6 @@
 package com.gmail.evgenymoshchin.repository.impl;
 
-import com.gmail.evgenymoshchin.repository.GenericRepository;
-import com.gmail.evgenymoshchin.repository.model.Role;
-import com.gmail.evgenymoshchin.repository.model.RoleEnum;
+import com.gmail.evgenymoshchin.repository.UserReviewRepository;
 import com.gmail.evgenymoshchin.repository.model.User;
 import com.gmail.evgenymoshchin.repository.model.UserReview;
 import org.apache.logging.log4j.LogManager;
@@ -20,22 +18,43 @@ import java.util.List;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.ADD_REVIEW_QUERY;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.CREATE_TABLE_REVIEW_QUERY;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.DELETE_REVIEW_BY_ID_QUERY;
+import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.DELETE_REVIEW_BY_USER_ID;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.DROP_TABLE_REVIEW_QUERY;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.GET_REVIEW_WITH_USER_ID_QUERY;
 
-public class UserReviewRepositoryImpl implements GenericRepository<UserReview> {
+public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> implements UserReviewRepository {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    public static GenericRepository<UserReview> instance;
+    public static UserReviewRepository instance;
 
     private UserReviewRepositoryImpl() {
     }
 
-    public static GenericRepository<UserReview> getInstance() {
+    public static UserReviewRepository getInstance() {
         if (instance == null) {
             instance = new UserReviewRepositoryImpl();
         }
         return instance;
+    }
+
+    @Override
+    public void createTableInDataBase(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(CREATE_TABLE_REVIEW_QUERY);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't create userReview table!", e);
+        }
+    }
+
+    @Override
+    public void dropTableFromDataBase(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(DROP_TABLE_REVIEW_QUERY);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't drop userReview table!", e);
+        }
     }
 
     @Override
@@ -90,8 +109,9 @@ public class UserReviewRepositoryImpl implements GenericRepository<UserReview> {
         }
     }
 
+    @Override
     public void deleteByUserId(Connection connection, Long userId) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM reviews WHERE user_id = ?;")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REVIEW_BY_USER_ID)) {
             preparedStatement.setLong(1, userId);
             int affectedRows = preparedStatement.executeUpdate();
             logger.info("deleted {} rows userReviews", affectedRows);
@@ -101,38 +121,9 @@ public class UserReviewRepositoryImpl implements GenericRepository<UserReview> {
         }
     }
 
-    @Override
-    public void dropTableFromDataBase(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(DROP_TABLE_REVIEW_QUERY);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop userReview table!", e);
-        }
-    }
-
-    @Override
-    public void createTableInDataBase(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(CREATE_TABLE_REVIEW_QUERY);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create userReview table!", e);
-        }
-    }
-
-    @Override
-    public Role getRoleByName(Connection connection, RoleEnum roleName) {
-        throw new UnsupportedOperationException("This method is not active");
-    }
-
-    @Override
-    public User getUserByEmail(Connection connection, String email) {
-        throw new UnsupportedOperationException("This method is not active");
-    }
-
     private UserReview getUserReview(ResultSet resultSet) throws SQLException {
         UserReview userReview = new UserReview();
+        userReview.setId(resultSet.getLong("id"));
         userReview.setTopic(resultSet.getString("topic"));
         userReview.setReview(resultSet.getString("review"));
         userReview.setDate(resultSet.getString("date"));

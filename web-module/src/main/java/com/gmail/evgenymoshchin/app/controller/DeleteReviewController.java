@@ -1,7 +1,7 @@
 package com.gmail.evgenymoshchin.app.controller;
 
-import com.gmail.evgenymoshchin.service.UserService;
-import com.gmail.evgenymoshchin.service.impl.UserServiceImpl;
+import com.gmail.evgenymoshchin.service.UserReviewService;
+import com.gmail.evgenymoshchin.service.impl.UserReviewServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,17 +15,17 @@ import java.lang.invoke.MethodHandles;
 
 import static com.gmail.evgenymoshchin.app.constant.PagesConstant.JSP_PAGES_LOCATION;
 
-public class DeleteUserController extends HttpServlet {
+public class DeleteReviewController extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private final UserService userService = UserServiceImpl.getInstance();
+    private final UserReviewService userReviewService = UserReviewServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String[] selectedIds = request.getParameterValues("userId");
+        String[] reviews = request.getParameterValues("reviewId");
         Long id;
-        for (String idFromForm : selectedIds) {
+        for (String idFromForm : reviews) {
             System.out.println(idFromForm);
             try {
                 id = Long.parseLong(idFromForm);
@@ -33,7 +33,7 @@ public class DeleteUserController extends HttpServlet {
                 logger.error(e.getMessage(), e);
                 throw new NumberFormatException("Id should be a number value");
             }
-            userService.deleteUserById(id);
+            userReviewService.deleteUserReviewById(id);
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(JSP_PAGES_LOCATION + "/success_operation.jsp");
         requestDispatcher.forward(request, response);

@@ -16,11 +16,15 @@
         <tbody>
         <tr>
             <td>Email</td>
-            <td><input minlength="3" maxlength="20" type="text" name="email" required/></td>
+            <td><label>
+                <input minlength="3" maxlength="20" type="text" name="email" required/>
+            </label></td>
         </tr>
         <tr>
             <td>Password</td>
-            <td><input minlength="1" maxlength="10" type="password" name="password" required/></td>
+            <td><label>
+                <input minlength="1" maxlength="10" type="password" name="password" required/>
+            </label></td>
         </tr>
         <tr>
             <td colspan="2" align="center">

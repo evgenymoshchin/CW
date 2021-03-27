@@ -9,6 +9,11 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.DeleteReviewController</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>AddReviewController</servlet-name>
         <servlet-class>com.gmail.evgenymoshchin.app.controller.AddReviewController</servlet-class>
@@ -34,6 +39,10 @@
         <servlet-class>com.gmail.evgenymoshchin.app.controller.LoginController</servlet-class>
     </servlet>
     <servlet-mapping>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <url-pattern>/reviews-deleted</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>GetReviewController</servlet-name>
         <url-pattern>/reviews</url-pattern>
     </servlet-mapping>
@@ -43,7 +52,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteUserController</servlet-name>
-        <url-pattern>/success</url-pattern>
+        <url-pattern>/users-deleted</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddUserController</servlet-name>
@@ -71,15 +80,6 @@
         <url-pattern>/login-control</url-pattern>
     </filter-mapping>
     <filter>
-        <filter-name>access-filter</filter-name>
-        <filter-class>com.gmail.evgenymoshchin.app.filters.AccessFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>access-filter</filter-name>
-<!--        <url-pattern>/*</url-pattern>-->
-        <url-pattern>/re</url-pattern>
-    </filter-mapping>
-    <filter>
         <filter-name>AdminFilter</filter-name>
         <filter-class>com.gmail.evgenymoshchin.app.filters.AdminFilter</filter-class>
     </filter>
@@ -97,7 +97,6 @@
         <url-pattern>/reviews</url-pattern>
         <url-pattern>/add-review</url-pattern>
     </filter-mapping>
-
 
     <listener>
         <listener-class>com.gmail.evgenymoshchin.app.listener.InitialListener</listener-class>

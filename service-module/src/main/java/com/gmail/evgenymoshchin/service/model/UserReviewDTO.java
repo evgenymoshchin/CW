@@ -1,7 +1,5 @@
 package com.gmail.evgenymoshchin.service.model;
 
-import com.gmail.evgenymoshchin.repository.model.User;
-
 public class UserReviewDTO {
     private String topic;
     private String review;

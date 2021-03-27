@@ -12,9 +12,9 @@ public interface SqlConstant {
     String ADD_REVIEW_QUERY = "INSERT INTO reviews (topic, review, date, user_id) VALUES (?,?,now(),?)";
     String GET_USERS_WITH_ROLE_QUERY = "SELECT user.id as id, first_name, last_name, patronymic, password, email, role_id, name FROM user JOIN role r on user.role_id = r.id;";
     String GET_USER_BY_EMAIL_QUERY = "SELECT user.id as id,first_name, last_name, patronymic, password, email, role_id, name FROM user LEFT JOIN role r on user.role_id = r.id WHERE email = ?;";
-    String GET_REVIEW_WITH_USER_ID_QUERY = "SELECT reviews.id, topic,review,date,user_id FROM reviews JOIN user u on reviews.user_id = u.id;";
+    String GET_REVIEW_WITH_USER_ID_QUERY = "SELECT reviews.id as id, topic,review,date,user_id FROM reviews JOIN user u on reviews.user_id = u.id;";
     String GET_ROLE_BY_NAME_QUERY = "SELECT id, name FROM role WHERE name = ?;";
     String DELETE_USER_BY_ID_QUERY = "DELETE FROM user WHERE id = ?";
     String DELETE_REVIEW_BY_ID_QUERY = "DELETE FROM reviews WHERE id = ?;";
-
+    String DELETE_REVIEW_BY_USER_ID = "DELETE FROM reviews WHERE user_id = ?;";
 }

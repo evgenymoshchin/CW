@@ -8,9 +8,10 @@ import java.io.InputStream;
 import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
+import static com.gmail.evgenymoshchin.repository.constant.ConnectionConstant.CONFIG_PROPERTY_FILE_LOCATION;
+
 public class PropertyUtil {
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    public static final String CONFIG_PROPERTY_FILE_LOCATION = "config.properties";
 
     private static PropertyUtil instance;
     private final Properties properties;

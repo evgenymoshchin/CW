@@ -7,14 +7,13 @@
 </head>
 <body>
 <div align="center">
-    <form method="post" action="${pageContext.request.contextPath}/success">
+    <form method="post" action="${pageContext.request.contextPath}/reviews-deleted">
         <table border="1" cellpadding="5">
             <caption><h2>List of reviews</h2></caption>
             <tr>
                 <th>topic</th>
                 <th>review</th>
                 <th>date</th>
-
                 <th>to delete</th>
             </tr>
             <c:forEach var="review" items="${reviews}">
@@ -23,13 +22,15 @@
                 <td><c:out value="${review.review}"/></td>
                 <td><c:out value="${review.date}"/></td>
                 <td>
-                    <input type="checkbox" name="userId" value="${user.id}">
+                    <label>
+                        <input type="checkbox" name="reviewId" value="${review.id}">
+                    </label>
                 </td>
-                </c:forEach>
+            </c:forEach>
         </table>
         <br>
         <td colspan="2" align="right">
-            <input type="submit" value="Delete selected users"/>
+            <input type="submit" value="Delete selected reviews"/>
         </td>
     </form>
     <form action="${pageContext.request.contextPath}/add-review">

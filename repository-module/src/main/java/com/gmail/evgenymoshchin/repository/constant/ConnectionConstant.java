@@ -9,4 +9,5 @@ public interface ConnectionConstant {
     String CACHE_PREP_STMTS = "cache.prep.stmts";
     String PREP_STMT_CACHE_SIZE = "prep.stmt.cache.size";
     String PREP_STMT_CACHE_SQL_LIMIT = "prep.stmt.cache.sql.limit";
+    String CONFIG_PROPERTY_FILE_LOCATION = "config.properties";
 }

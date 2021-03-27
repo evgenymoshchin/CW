@@ -1,6 +1,6 @@
 package com.gmail.evgenymoshchin.repository.impl;
 
-import com.gmail.evgenymoshchin.repository.GenericRepository;
+import com.gmail.evgenymoshchin.repository.UserRepository;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.RoleEnum;
 import com.gmail.evgenymoshchin.repository.model.User;
@@ -23,20 +23,40 @@ import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.DROP_TABL
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.GET_USERS_WITH_ROLE_QUERY;
 import static com.gmail.evgenymoshchin.repository.constant.SqlConstant.GET_USER_BY_EMAIL_QUERY;
 
-public class UserRepositoryImpl implements GenericRepository<User> {
+public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements UserRepository {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
 
-    private static GenericRepository<User> instance;
+    private static UserRepository instance;
 
     private UserRepositoryImpl() {
     }
 
-    public static GenericRepository<User> getInstance() {
+    public static UserRepository getInstance() {
         if (instance == null) {
             instance = new UserRepositoryImpl();
         }
         return instance;
+    }
+
+    @Override
+    public void createTableInDataBase(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(CREATE_USER_TABLE_QUERY);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't create user table!", e);
+        }
+    }
+
+    @Override
+    public void dropTableFromDataBase(Connection connection) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(DROP_TABLE_USER_QUERY);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't drop user table!", e);
+        }
     }
 
     @Override
@@ -95,51 +115,6 @@ public class UserRepositoryImpl implements GenericRepository<User> {
         }
     }
 
-    @Override
-    public void deleteByUserId(Connection connection, Long userId) {
-
-    }
-
-    @Override
-    public void dropTableFromDataBase(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(DROP_TABLE_USER_QUERY);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop user table!", e);
-        }
-    }
-
-    @Override
-    public void createTableInDataBase(Connection connection) {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(CREATE_USER_TABLE_QUERY);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create user table!", e);
-        }
-    }
-
-    @Override
-    public Role getRoleByName(Connection connection, RoleEnum roleName) {
-        throw new UnsupportedOperationException("This method is not active");
-    }
-
-//    public User getUserById(Connection connection, Long id) {
-//        try (PreparedStatement preparedStatement = connection.prepareStatement(
-//                GET_USER_BY_EMAIL_QUERY)) {
-//            preparedStatement.setString(1, email);
-//            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-//                if (resultSet.next()) {
-//                    return getUser(resultSet);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            logger.error(e.getMessage(), e);
-//            throw new IllegalArgumentException("Can't get user by email from database!", e);
-//        }
-//        return null;
-//    }
     @Override
     public User getUserByEmail(Connection connection, String email) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(

@@ -1,7 +1,8 @@
 package com.gmail.evgenymoshchin.service.impl;
 
 import com.gmail.evgenymoshchin.repository.ConnectionRepository;
-import com.gmail.evgenymoshchin.repository.GenericRepository;
+import com.gmail.evgenymoshchin.repository.UserRepository;
+import com.gmail.evgenymoshchin.repository.UserReviewRepository;
 import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
@@ -23,8 +24,8 @@ public class UserReviewServiceImpl implements UserReviewService {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
-    private final GenericRepository<User> userRepository = UserRepositoryImpl.getInstance();
-    private final GenericRepository<UserReview> userReviewRepository = UserReviewRepositoryImpl.getInstance();
+    private final UserRepository userRepository = UserRepositoryImpl.getInstance();
+    private final UserReviewRepository userReviewRepository = UserReviewRepositoryImpl.getInstance();
 
     private static UserReviewService instance;
 
@@ -79,11 +80,11 @@ public class UserReviewServiceImpl implements UserReviewService {
     }
 
     @Override
-    public void deleteUserReviewById(Long userId) {
+    public void deleteUserReviewById(Long id) {
         try (Connection connection = connectionRepository.getDataSourceConnection()) {
             connection.setAutoCommit(false);
             try {
-                userReviewRepository.delete(connection, userId);
+                userReviewRepository.delete(connection, id);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
@@ -105,6 +106,7 @@ public class UserReviewServiceImpl implements UserReviewService {
 
     private UserReviewDTO convertObjectToDTO(UserReview userReview) {
         UserReviewDTO userReviewDTO = new UserReviewDTO();
+        userReviewDTO.setId(userReview.getId());
         userReviewDTO.setTopic(userReview.getTopic());
         userReviewDTO.setReview(userReview.getReview());
         userReviewDTO.setDate(userReview.getDate());

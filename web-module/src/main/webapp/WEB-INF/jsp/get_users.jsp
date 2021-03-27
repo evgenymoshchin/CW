@@ -7,7 +7,7 @@
 </head>
 <body>
 <div align="center">
-    <form method="post" action="${pageContext.request.contextPath}/success">
+    <form method="post" action="${pageContext.request.contextPath}/users-deleted">
         <table border="1" cellpadding="5">
             <caption><h2>List of users</h2></caption>
             <tr>
@@ -18,6 +18,7 @@
                 <th>role</th>
                 <th>to delete</th>
             </tr>
+
             <c:forEach var="user" items="${users}">
             <tr>
                 <td><c:out value="${user.firstName}"/></td>
@@ -26,7 +27,9 @@
                 <td><c:out value="${user.email}"/></td>
                 <td><c:out value="${user.role}"/></td>
                 <td>
-                    <input type="checkbox" name="userId" value="${user.id}">
+                    <label>
+                        <input type="checkbox" name="userId" value="${user.id}">
+                    </label>
                 </td>
                 </c:forEach>
         </table>
