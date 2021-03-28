@@ -43,9 +43,11 @@ public class RoleServiceImpl implements RoleService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't save role in database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't save role in database!", e);
         }
     }
 

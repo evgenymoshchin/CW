@@ -17,7 +17,6 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UserReviewServiceImpl implements UserReviewService {
@@ -51,9 +50,11 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't save review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't save review from database!", e);
         }
     }
 
@@ -72,11 +73,12 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't get review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't get review from database!", e);
         }
-        return Collections.emptyList();
     }
 
     @Override
@@ -89,9 +91,11 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't delete review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't delete review from database!", e);
         }
     }
 

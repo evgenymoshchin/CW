@@ -48,9 +48,11 @@ public class TableServiceImpl implements TableService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't drop tables from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't drop tables from database!", e);
         }
     }
 
@@ -66,9 +68,11 @@ public class TableServiceImpl implements TableService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't create tables in database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't create tables in database!", e);
         }
     }
 }

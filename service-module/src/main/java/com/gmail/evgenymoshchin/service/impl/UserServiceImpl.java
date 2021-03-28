@@ -19,7 +19,6 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -54,9 +53,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't save user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't save user from database!", e);
         }
     }
 
@@ -75,11 +76,12 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't get user from database!", e);
         }
-        return Collections.emptyList();
     }
 
     @Override
@@ -93,9 +95,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't delete user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't delete user from database!", e);
         }
     }
 
@@ -114,11 +118,12 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't get user from database!", e);
         }
-        return false;
     }
 
     @Override
@@ -135,11 +140,12 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
+                throw new IllegalArgumentException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
+            throw new IllegalArgumentException("Can't get user from database!", e);
         }
-        return null;
     }
 
     private User convertDTOToObject(UserDTO userDTO, Role role) {
