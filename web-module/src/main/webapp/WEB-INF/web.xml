@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+   http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.DeleteReviewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddReviewController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.AddReviewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetReviewController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.GetReviewController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.AddUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUserController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.GetUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.gmail.evgenymoshchin.app.controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteReviewController</servlet-name>
+        <url-pattern>/reviews-deleted</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetReviewController</servlet-name>
+        <url-pattern>/reviews</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddReviewController</servlet-name>
+        <url-pattern>/add-review</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/users-deleted</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/add-user</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUserController</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login-control</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>login-filter</filter-name>
+        <filter-class>com.gmail.evgenymoshchin.app.filters.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>login-filter</filter-name>
+        <url-pattern>/login-control</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.gmail.evgenymoshchin.app.filters.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/add-user</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>com.gmail.evgenymoshchin.app.filters.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>/reviews</url-pattern>
+        <url-pattern>/add-review</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.gmail.evgenymoshchin.app.listener.InitialListener</listener-class>
+    </listener>
+</web-app>
