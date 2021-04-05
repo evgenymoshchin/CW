@@ -17,9 +17,7 @@
             <input minlength="3" maxlength="180" name="review" type="text">
         </label></p>
     <br>
-<%--    <form action="${pageContext.request.contextPath}/add-review" method="POST">--%>
         <input value="Add Review!" type="submit">
-<%--    </form>--%>
 </form>
 </body>
 </html>

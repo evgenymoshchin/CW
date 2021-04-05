@@ -8,6 +8,7 @@ import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.User;
 import com.gmail.evgenymoshchin.repository.model.UserReview;
+import com.gmail.evgenymoshchin.service.exception.ServiceException;
 import com.gmail.evgenymoshchin.service.UserReviewService;
 import com.gmail.evgenymoshchin.service.model.UserReviewDTO;
 import org.apache.logging.log4j.LogManager;
@@ -50,11 +51,11 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't save review from database!", e);
+                throw new ServiceException("Can't save review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't save review from database!", e);
+            throw new ServiceException("Can't save review from database!", e);
         }
     }
 
@@ -73,11 +74,11 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't get review from database!", e);
+                throw new ServiceException("Can't get review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get review from database!", e);
+            throw new ServiceException("Can't get review from database!", e);
         }
     }
 
@@ -91,11 +92,11 @@ public class UserReviewServiceImpl implements UserReviewService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't delete review from database!", e);
+                throw new ServiceException("Can't delete review from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't delete review from database!", e);
+            throw new ServiceException("Can't delete review from database!", e);
         }
     }
 

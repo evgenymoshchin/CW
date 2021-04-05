@@ -7,7 +7,7 @@
 </head>
 <body>
 <h2 style="text-align:center;">Access denied! Try again please.</h2>
-<p align="center"><a href="http://localhost:8080/app/login-control"><b>Click here to return home
+<p align="center"><a href="${pageContext.request.contextPath}/login-control"><b>Click here to return home
     page!</b></a></p><br>
 </body>
 </html>

@@ -26,7 +26,6 @@ public class DeleteReviewController extends HttpServlet {
         String[] reviews = request.getParameterValues("reviewId");
         Long id;
         for (String idFromForm : reviews) {
-            System.out.println(idFromForm);
             try {
                 id = Long.parseLong(idFromForm);
             } catch (NumberFormatException e) {

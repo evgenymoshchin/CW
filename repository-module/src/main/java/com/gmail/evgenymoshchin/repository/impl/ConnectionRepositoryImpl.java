@@ -2,6 +2,7 @@ package com.gmail.evgenymoshchin.repository.impl;
 
 import com.gmail.evgenymoshchin.repository.ConnectionRepository;
 import com.gmail.evgenymoshchin.repository.constant.ConnectionConstant;
+import com.gmail.evgenymoshchin.repository.exception.RepositoryException;
 import com.gmail.evgenymoshchin.repository.util.PropertyUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -54,7 +55,7 @@ public class ConnectionRepositoryImpl implements ConnectionRepository {
             return hikariDataSource.getConnection();
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Connection is not available");
+            throw new RepositoryException("Connection is not available", e);
         }
     }
 }

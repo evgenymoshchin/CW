@@ -8,6 +8,7 @@ import com.gmail.evgenymoshchin.repository.impl.ConnectionRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
+import com.gmail.evgenymoshchin.service.exception.ServiceException;
 import com.gmail.evgenymoshchin.service.TableService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,9 +20,9 @@ import java.sql.SQLException;
 public class TableServiceImpl implements TableService {
 
     private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().lookupClass());
-    private static final RoleRepository roleRepository = RoleRepositoryImpl.getInstance();
-    private static final UserRepository userRepository = UserRepositoryImpl.getInstance();
-    private static final UserReviewRepository userReviewRepository = UserReviewRepositoryImpl.getInstance();
+    private final RoleRepository roleRepository = RoleRepositoryImpl.getInstance();
+    private final UserRepository userRepository = UserRepositoryImpl.getInstance();
+    private final UserReviewRepository userReviewRepository = UserReviewRepositoryImpl.getInstance();
     private final ConnectionRepository connectionRepository = ConnectionRepositoryImpl.getInstance();
 
     private static TableService instance;
@@ -48,11 +49,11 @@ public class TableServiceImpl implements TableService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't drop tables from database!", e);
+                throw new ServiceException("Can't drop tables from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop tables from database!", e);
+            throw new ServiceException("Can't drop tables from database!", e);
         }
     }
 
@@ -68,11 +69,11 @@ public class TableServiceImpl implements TableService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't create tables in database!", e);
+                throw new ServiceException("Can't create tables in database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create tables in database!", e);
+            throw new ServiceException("Can't create tables in database!", e);
         }
     }
 }

@@ -10,6 +10,7 @@ import com.gmail.evgenymoshchin.repository.impl.UserRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.impl.UserReviewRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.User;
+import com.gmail.evgenymoshchin.service.exception.ServiceException;
 import com.gmail.evgenymoshchin.service.UserService;
 import com.gmail.evgenymoshchin.service.model.UserDTO;
 import org.apache.logging.log4j.LogManager;
@@ -53,11 +54,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't save user from database!", e);
+                throw new ServiceException("Can't save user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't save user from database!", e);
+            throw new ServiceException("Can't save user from database!", e);
         }
     }
 
@@ -76,11 +77,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't get user from database!", e);
+                throw new ServiceException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get user from database!", e);
+            throw new ServiceException("Can't get user from database!", e);
         }
     }
 
@@ -95,11 +96,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't delete user from database!", e);
+                throw new ServiceException("Can't delete user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't delete user from database!", e);
+            throw new ServiceException("Can't delete user from database!", e);
         }
     }
 
@@ -118,11 +119,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't get user from database!", e);
+                throw new ServiceException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get user from database!", e);
+            throw new ServiceException("Can't get user from database!", e);
         }
     }
 
@@ -140,11 +141,11 @@ public class UserServiceImpl implements UserService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't get user from database!", e);
+                throw new ServiceException("Can't get user from database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get user from database!", e);
+            throw new ServiceException("Can't get user from database!", e);
         }
     }
 

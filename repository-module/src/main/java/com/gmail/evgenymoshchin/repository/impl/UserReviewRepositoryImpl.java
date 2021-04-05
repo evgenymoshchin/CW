@@ -1,6 +1,7 @@
 package com.gmail.evgenymoshchin.repository.impl;
 
 import com.gmail.evgenymoshchin.repository.UserReviewRepository;
+import com.gmail.evgenymoshchin.repository.exception.RepositoryException;
 import com.gmail.evgenymoshchin.repository.model.User;
 import com.gmail.evgenymoshchin.repository.model.UserReview;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +44,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             statement.execute(CREATE_TABLE_REVIEW_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create userReview table!", e);
+            throw new RepositoryException("Can't create userReview table!", e);
         }
     }
 
@@ -53,7 +54,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             statement.execute(DROP_TABLE_REVIEW_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop userReview table!", e);
+            throw new RepositoryException("Can't drop userReview table!", e);
         }
     }
 
@@ -76,7 +77,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't add userReview into database!", e);
+            throw new RepositoryException("Can't add userReview into database!", e);
         }
     }
 
@@ -93,7 +94,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Getting userReview from database failed", e);
+            throw new RepositoryException("Getting userReview from database failed", e);
         }
     }
 
@@ -105,7 +106,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             logger.info("deleted {} rows userReviews", affectedRows);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Deleting userReview from database failed", e);
+            throw new RepositoryException("Deleting userReview from database failed", e);
         }
     }
 
@@ -117,7 +118,7 @@ public class UserReviewRepositoryImpl extends GenericRepositoryImpl<UserReview> 
             logger.info("deleted {} rows userReviews", affectedRows);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Deleting userReview from database failed", e);
+            throw new RepositoryException("Deleting userReview from database failed", e);
         }
     }
 

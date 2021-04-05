@@ -7,6 +7,7 @@ import com.gmail.evgenymoshchin.repository.impl.RoleRepositoryImpl;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.RoleEnum;
 import com.gmail.evgenymoshchin.service.RoleService;
+import com.gmail.evgenymoshchin.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,11 +44,11 @@ public class RoleServiceImpl implements RoleService {
             } catch (SQLException e) {
                 connection.rollback();
                 logger.error(e.getMessage(), e);
-                throw new IllegalArgumentException("Can't save role in database!", e);
+                throw new ServiceException("Can't save role in database!", e);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't save role in database!", e);
+            throw new ServiceException("Can't save role in database!", e);
         }
     }
 

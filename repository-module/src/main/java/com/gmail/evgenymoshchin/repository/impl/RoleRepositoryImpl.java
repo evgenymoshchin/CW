@@ -1,6 +1,7 @@
 package com.gmail.evgenymoshchin.repository.impl;
 
 import com.gmail.evgenymoshchin.repository.RoleRepository;
+import com.gmail.evgenymoshchin.repository.exception.RepositoryException;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.RoleEnum;
 import org.apache.logging.log4j.LogManager;
@@ -40,7 +41,7 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role> implements R
             statement.execute(CREATE_TABLE_ROLE_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create role table!", e);
+            throw new RepositoryException("Can't create role table!", e);
         }
     }
 
@@ -50,7 +51,7 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role> implements R
             statement.execute(DROP_TABLE_ROLE_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop role table!", e);
+            throw new RepositoryException("Can't drop role table!", e);
         }
     }
 
@@ -71,7 +72,7 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role> implements R
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't add role into database!", e);
+            throw new RepositoryException("Can't add role into database!", e);
         }
     }
 
@@ -87,7 +88,7 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl<Role> implements R
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get role from database!", e);
+            throw new RepositoryException("Can't get role from database!", e);
         }
         return null;
     }

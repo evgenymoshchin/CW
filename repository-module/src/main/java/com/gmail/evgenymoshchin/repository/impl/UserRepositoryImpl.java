@@ -1,6 +1,7 @@
 package com.gmail.evgenymoshchin.repository.impl;
 
 import com.gmail.evgenymoshchin.repository.UserRepository;
+import com.gmail.evgenymoshchin.repository.exception.RepositoryException;
 import com.gmail.evgenymoshchin.repository.model.Role;
 import com.gmail.evgenymoshchin.repository.model.RoleEnum;
 import com.gmail.evgenymoshchin.repository.model.User;
@@ -45,7 +46,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             statement.execute(CREATE_USER_TABLE_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't create user table!", e);
+            throw new RepositoryException("Can't create user table!", e);
         }
     }
 
@@ -55,7 +56,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             statement.execute(DROP_TABLE_USER_QUERY);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't drop user table!", e);
+            throw new RepositoryException("Can't drop user table!", e);
         }
     }
 
@@ -82,7 +83,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't add user into database!", e);
+            throw new RepositoryException("Can't add user into database!", e);
         }
     }
 
@@ -99,7 +100,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Getting user from database failed", e);
+            throw new RepositoryException("Getting user from database failed", e);
         }
     }
 
@@ -111,7 +112,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             logger.info("deleted {} rows roles", affectedRows);
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Deleting user from database failed", e);
+            throw new RepositoryException("Deleting user from database failed", e);
         }
     }
 
@@ -127,7 +128,7 @@ public class UserRepositoryImpl extends GenericRepositoryImpl<User> implements U
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
-            throw new IllegalArgumentException("Can't get user by email from database!", e);
+            throw new RepositoryException("Can't get user by email from database!", e);
         }
         return null;
     }
